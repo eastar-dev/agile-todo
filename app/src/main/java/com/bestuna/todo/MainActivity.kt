@@ -67,6 +67,7 @@ class MainActivity : AppCompatActivity() {
         toast("수정 $todo")
         supportFragmentManager.commit {
             replace(R.id.fragment, UpdateFragment())
+            addToBackStack(null)
         }
         bb.fab.isVisible = false
     }
