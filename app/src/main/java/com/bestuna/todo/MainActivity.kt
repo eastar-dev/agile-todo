@@ -26,13 +26,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(bb.root)
 
         bb.fab.setOnClickListener { view ->
-            supportFragmentManager.commit {
-                replace(R.id.fragment, CreateFragment())
-            }
-            view.isVisible = false
-            Snackbar.make(view, "Create Fragment 보일거야 ", Snackbar.LENGTH_LONG)
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment, CreateFragment())
+                .addToBackStack("createFragment")
+                .commit()
 
-                .setAction("Action", null).show()
+            view.isVisible = false
         }
     }
 
