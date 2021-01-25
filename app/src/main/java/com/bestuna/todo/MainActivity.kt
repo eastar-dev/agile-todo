@@ -1,10 +1,12 @@
 package com.bestuna.todo
 
+import android.nfc.NfcAdapter.EXTRA_ID
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.commit
 import com.bestuna.todo.data.Todo
@@ -44,7 +46,10 @@ class MainActivity : AppCompatActivity() {
     private fun edit(todo: Todo) {
         toast("수정 $todo")
         supportFragmentManager.commit {
-            replace(R.id.fragment, UpdateFragment())
+            val fr = UpdateFragment().apply {
+                arguments = bundleOf(UpdateFragment.EXTRA_ID to todo.id)
+            }
+            replace(R.id.fragment, fr)
             addToBackStack(null)
         }
         bb.fab.isVisible = false
@@ -52,7 +57,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun delete(todo: Todo) {
-        toast("삭제 $todo")
+        vm.delete(todo)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
