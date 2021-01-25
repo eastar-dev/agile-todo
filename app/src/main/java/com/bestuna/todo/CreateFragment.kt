@@ -18,25 +18,22 @@ import com.google.android.material.textfield.TextInputEditText
 
 open class CreateFragment : Fragment() {
 
-    val vm: CreateTodoViewmodel by viewModels()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_create, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<MaterialButton>(R.id.btn_add).setOnClickListener {
-            Snackbar.make(view, "Todo내용 저장 할거얌. ", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
 
             val newTodo = Todo(title = view.findViewById<TextInputEditText>(R.id.input_title).text.toString(), content = view.findViewById<TextInputEditText>(R.id.input_content).text.toString())
-            vm.addTodo(newTodo)
             Log.e("생성된 Todo 객체", newTodo.toString())
+
+            TodoDB.add(newTodo)
+
             activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
             activity?.supportFragmentManager?.popBackStack()
             (activity as MainActivity).findViewById<FloatingActionButton>(R.id.fab).isVisible = true
