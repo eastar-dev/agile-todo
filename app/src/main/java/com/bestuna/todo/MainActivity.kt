@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.commit
 import com.bestuna.todo.data.Todo
 import com.bestuna.todo.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
@@ -26,7 +27,10 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(bb.toolbar)
 
         bb.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+            supportFragmentManager.commit {
+                replace(R.id.fragment, CreateFragment())
+            }
+            Snackbar.make(view, "Create Fragment 보일거야 ", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
 
@@ -70,6 +74,4 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
-
 }
