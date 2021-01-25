@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         bb = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bb.root)
         setSupportActionBar(bb.toolbar)
+        TodoDB.CREATE(this)
 
         bb.fab.setOnClickListener { view ->
             supportFragmentManager.commit {
