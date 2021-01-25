@@ -36,4 +36,8 @@ class MainActivityViewModel : ViewModel() {
         this@MainActivityViewModel.todos.value = todos
     }
 
+    private fun saveTodos(todos : List<Todo>) {
+        TodoDB.add(todos)
+    }
+
 }
