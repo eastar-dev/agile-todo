@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         bb = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bb.root)
-
+        bb.toolbar.title = "ToDo List"
         bb.fab.setOnClickListener { view ->
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment, CreateFragment())
