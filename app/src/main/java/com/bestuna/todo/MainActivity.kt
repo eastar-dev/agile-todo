@@ -1,27 +1,35 @@
 package com.bestuna.todo
 
+import android.log.Log
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bestuna.todo.data.Todo
 import com.bestuna.todo.databinding.ActivityMainBinding
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import dev.eastar.ktx.alert
 import dev.eastar.ktx.negativeButton
 import dev.eastar.ktx.positiveButton
 import dev.eastar.ktx.toast
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var bb: ActivityMainBinding
+    private val vm: MainActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bb = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bb.root)
         setSupportActionBar(bb.toolbar)
+
+        vm.todos.observe(this) {
+            Log.e(it)
+        }
 
         bb.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
