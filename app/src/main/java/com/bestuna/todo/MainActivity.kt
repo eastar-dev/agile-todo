@@ -1,12 +1,13 @@
 package com.bestuna.todo
 
+import android.log.Log
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bestuna.todo.data.Todo
 import com.bestuna.todo.databinding.ActivityMainBinding
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import dev.eastar.ktx.alert
 import dev.eastar.ktx.negativeButton
@@ -14,8 +15,9 @@ import dev.eastar.ktx.positiveButton
 import dev.eastar.ktx.toast
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var bb: ActivityMainBinding
+
+    val vm: MainActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +33,10 @@ class MainActivity : AppCompatActivity() {
         bb.delete.setOnLongClickListener {
             maneage(Todo())
             true
+        }
+
+        vm.todos.observe(this) {
+            Log.e(it)
         }
     }
 
