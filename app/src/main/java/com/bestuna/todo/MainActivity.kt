@@ -41,13 +41,12 @@ class MainActivity : AppCompatActivity() {
         findViewById<RecyclerView>(R.id.todoList).adapter = adapter
 
         bb.fab.setOnClickListener { view ->
-            supportFragmentManager.commit {
-                replace(R.id.fragment, CreateFragment())
-            }
-            view.isVisible = false
-            Snackbar.make(view, "Create Fragment 보일거야 ", Snackbar.LENGTH_LONG)
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment, CreateFragment())
+                .addToBackStack("createFragment")
+                .commit()
 
-                .setAction("Action", null).show()
+            view.isVisible = false
         }
 
         vm.todos.observe(this) {

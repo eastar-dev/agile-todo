@@ -44,5 +44,10 @@ open class CreateFragment : Fragment() {
 
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        (activity as MainActivity).findViewById<FloatingActionButton>(R.id.fab).isVisible = true
+    }
+
 }
 
