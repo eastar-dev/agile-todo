@@ -8,23 +8,23 @@ import android.view.*
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.commit
 import androidx.recyclerview.widget.RecyclerView
 import com.bestuna.todo.data.Todo
-import com.bestuna.todo.databinding.ActivityMainBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+
+
 
 class MainActivity : AppCompatActivity() {
 
     val vm: MainActivityViewModel by viewModels()
     var adapter: TodoDisplayAdapter? = null
-    lateinit var bb: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bb = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        bb.vm = vm
+        setContentView(R.layout.activity_main)
+
 
         adapter = TodoDisplayAdapter(
             this,
@@ -33,17 +33,21 @@ class MainActivity : AppCompatActivity() {
                 Todo("2", "Title Test2", "Content Test2")
             )
         )
-        bb.todoList.adapter = adapter
+        findViewById<RecyclerView>(R.id.todoList).adapter = adapter
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+            supportFragmentManager.commit {
+                replace(R.id.fragment, CreateFragment())
+            }
+            Snackbar.make(view, "Create Fragment 보일거야 ", Snackbar.LENGTH_LONG)
+
                 .setAction("Action", null).show()
         }
-
         vm.todos.observe(this) {
             Log.e(it)
         }
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -89,3 +93,4 @@ class MainActivity : AppCompatActivity() {
 
     }
 }
+
