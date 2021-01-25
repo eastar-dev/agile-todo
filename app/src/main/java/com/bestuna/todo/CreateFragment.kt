@@ -14,7 +14,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 
-class CreateFragment : Fragment() {
+open class CreateFragment : Fragment() {
 
     val vm: CreateTodoViewmodel by viewModels()
 
