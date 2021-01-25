@@ -1,16 +1,12 @@
 package com.bestuna.todo
 
-
-import android.content.Context
-import android.log.Log
 import android.os.Bundle
-import android.view.*
-import android.widget.TextView
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.viewModels
-import androidx.core.view.isVisible
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.commit
-import androidx.recyclerview.widget.RecyclerView
 import com.bestuna.todo.data.Todo
 import com.bestuna.todo.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
@@ -21,39 +17,22 @@ import dev.eastar.ktx.toast
 
 class MainActivity : AppCompatActivity() {
     private lateinit var bb: ActivityMainBinding
-
     val vm: MainActivityViewModel by viewModels()
-    var adapter: TodoDisplayAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        TodoDB.CREATE(this)
         super.onCreate(savedInstanceState)
         bb = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bb.root)
-        TodoDB.CREATE(this)
-
-        adapter = TodoDisplayAdapter(
-            this,
-            mutableListOf(
-                Todo("1", "Title Test", "Content Test"),
-                Todo("2", "Title Test2", "Content Test2")
-            )
-        )
-        findViewById<RecyclerView>(R.id.todoList).adapter = adapter
 
         bb.fab.setOnClickListener { view ->
-            supportFragmentManager.commit {
-                replace(R.id.fragment, CreateFragment())
-            }
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment, CreateFragment())
+                .addToBackStack("createFragment")
+                .commit()
+
             view.isVisible = false
-            Snackbar.make(view, "Create Fragment 보일거야 ", Snackbar.LENGTH_LONG)
-
-                .setAction("Action", null).show()
         }
-
-        vm.todos.observe(this) {
-            Log.e(it)
-        }
-
     }
 
     fun maneage(todo: Todo): Unit {
@@ -70,6 +49,7 @@ class MainActivity : AppCompatActivity() {
             addToBackStack(null)
         }
         bb.fab.isVisible = false
+
     }
 
     private fun delete(todo: Todo) {
@@ -93,37 +73,4 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    inner class TodoDisplayAdapter(var context: Context, val list: List<Todo>) :
-        RecyclerView.Adapter<TodoDisplayAdapter.ToDoDisplayViewHolder>() {
-
-        override fun onCreateViewHolder(
-            parent: ViewGroup,
-            viewType: Int
-        ): ToDoDisplayViewHolder {
-            val view =
-                LayoutInflater.from(context).inflate(R.layout.displaylist_item, parent, false)
-            return ToDoDisplayViewHolder(view)
-        }
-
-        override fun onBindViewHolder(holder: ToDoDisplayViewHolder, position: Int) {
-            holder.id.text = list[position].id
-            holder.title.text = list[position].title
-            holder.content.text = list[position].content
-        }
-
-        override fun getItemCount() = list.size
-
-        inner class ToDoDisplayViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            init {
-                view.setOnLongClickListener {
-                    maneage(list[adapterPosition])
-                    true
-                }
-            }
-
-            val title = view.findViewById<TextView>(R.id.title)
-            val content = view.findViewById<TextView>(R.id.content)
-            val id = view.findViewById<TextView>(R.id.id)
-        }
-    }
 }
