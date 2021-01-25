@@ -2,41 +2,45 @@ package com.bestuna.todo
 
 
 import android.content.Context
+import android.log.Log
 import android.os.Bundle
 import android.view.*
 import android.widget.TextView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
-import android.log.Log
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bestuna.todo.data.Todo
 import com.bestuna.todo.databinding.ActivityMainBinding
-import android.view.Menu
-import android.view.MenuItem
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
 
-    val vm : MainActivityViewModel by viewModels()
-    var adapter : TodoDisplayAdapter? = null
-    lateinit var bb : ActivityMainBinding
+    val vm: MainActivityViewModel by viewModels()
+    var adapter: TodoDisplayAdapter? = null
+    lateinit var bb: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bb = DataBindingUtil.setContentView(this,R.layout.activity_main)
+        bb = DataBindingUtil.setContentView(this, R.layout.activity_main)
         bb.vm = vm
 
-        adapter = TodoDisplayAdapter(this,mutableListOf(Todo("1","Title Test","Content Test"),Todo("2","Title Test2","Content Test2")))
+        adapter = TodoDisplayAdapter(
+            this,
+            mutableListOf(
+                Todo("1", "Title Test", "Content Test"),
+                Todo("2", "Title Test2", "Content Test2")
+            )
+        )
         bb.todoList.adapter = adapter
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+                .setAction("Action", null).show()
         }
 
-        vm.todos.observe(this){
+        vm.todos.observe(this) {
             Log.e(it)
         }
     }
@@ -58,11 +62,13 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    inner class TodoDisplayAdapter(var context: Context, list:MutableList<Todo>) : RecyclerView.Adapter<TodoDisplayAdapter.ToDoDisplayViewHolder>() {
+    inner class TodoDisplayAdapter(var context: Context, list: List<Todo>) :
+        RecyclerView.Adapter<TodoDisplayAdapter.ToDoDisplayViewHolder>() {
         var DisplayList = list
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToDoDisplayViewHolder {
-            val view = LayoutInflater.from(context).inflate(R.layout.displaylist_item,parent,false)
+            val view =
+                LayoutInflater.from(context).inflate(R.layout.displaylist_item, parent, false)
             return ToDoDisplayViewHolder(view)
         }
 
