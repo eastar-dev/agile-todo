@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         bb = DataBindingUtil.setContentView(this,R.layout.activity_main)
         bb.vm = vm
 
-        adapter = TodoDisplayAdapter(this,mutableListOf(Todo("1","Title Test","Content Test")))
+        adapter = TodoDisplayAdapter(this,mutableListOf(Todo("1","Title Test","Content Test"),Todo("2","Title Test2","Content Test2")))
         bb.todoList.adapter = adapter
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
