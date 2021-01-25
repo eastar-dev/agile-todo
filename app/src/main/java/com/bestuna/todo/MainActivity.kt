@@ -26,11 +26,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(bb.root)
         bb.toolbar.title = "ToDo List"
         bb.fab.setOnClickListener { view ->
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment, CreateFragment())
-                .addToBackStack("createFragment")
-                .commit()
-
+            supportFragmentManager.commit {
+                replace(R.id.fragment, CreateFragment())
+                addToBackStack("createFragment")
+            }
             view.isVisible = false
         }
     }
