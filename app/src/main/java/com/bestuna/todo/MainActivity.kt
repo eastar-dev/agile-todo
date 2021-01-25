@@ -44,6 +44,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun edit(todo: Todo) {
         toast("수정 $todo")
+        supportFragmentManager.commit {
+            replace(R.id.fragment, UpdateFragment())
+            addToBackStack(null)
+        }
+        bb.fab.isVisible = false
+
     }
 
     private fun delete(todo: Todo) {
