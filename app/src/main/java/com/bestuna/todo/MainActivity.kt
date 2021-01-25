@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun delete(todo: Todo) {
-        toast("삭제 $todo")
+        vm.delete(todo)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

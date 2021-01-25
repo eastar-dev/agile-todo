@@ -21,12 +21,13 @@ class MainActivityViewModel : ViewModel() {
         todoItems.value = todoList
     }
 
-    private fun saveTodos(todos: List<Todo>) {
-        TodoDB.add(todos)
-    }
-
     fun add(todo: Todo) {
         TodoDB.add(todo)
+        getTodos()
+    }
+
+    fun delete(todo: Todo) {
+        TodoDB.remove(todo)
         getTodos()
     }
 
