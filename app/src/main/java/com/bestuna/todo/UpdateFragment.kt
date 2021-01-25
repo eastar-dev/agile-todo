@@ -1,19 +1,15 @@
 package com.bestuna.todo
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.widget.EditText
+import com.bestuna.todo.data.Todo
 
-class UpdateFragment : Fragment() {
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        return super.onCreateView(inflater, container, savedInstanceState)
-
+class UpdateFragment : CreateFragment() {
+    val todo: Todo = Todo()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        view.findViewById<EditText>(R.id.input_title).setText(todo.title)
+        view.findViewById<EditText>(R.id.input_content).setText(todo.content)
     }
 }
