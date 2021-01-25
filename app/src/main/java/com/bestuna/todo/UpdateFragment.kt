@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import com.bestuna.todo.data.Todo
 
 class UpdateFragment : CreateFragment() {
@@ -14,5 +15,7 @@ class UpdateFragment : CreateFragment() {
         view.findViewById<EditText>(R.id.input_content).setText(todo.content)
         view.findViewById<TextView>(R.id.tv_head).text = "Update"
         view.findViewById<TextView>(R.id.btn_add).text = "Update"
+
+        (activity as MainActivity).findViewById<Toolbar>(R.id.toolbar).title = "Update"
     }
 }
