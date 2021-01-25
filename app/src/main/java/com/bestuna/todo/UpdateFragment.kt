@@ -5,7 +5,12 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.isVisible
 import com.bestuna.todo.data.Todo
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputEditText
 
 class UpdateFragment : CreateFragment() {
     lateinit var todo: Todo
@@ -20,6 +25,25 @@ class UpdateFragment : CreateFragment() {
         view.findViewById<TextView>(R.id.btn_add).text = "Update"
 
         (activity as MainActivity).findViewById<Toolbar>(R.id.toolbar).title = "Update"
+
+        view.findViewById<MaterialButton>(R.id.btn_add).setOnClickListener {
+
+            if (checkValidation(view.findViewById<TextInputEditText>(R.id.input_title).text.toString(), view.findViewById<TextInputEditText>(R.id.input_content).text.toString())) {
+
+                val newTodo = Todo(id = todo.id,
+                    title = view.findViewById<TextInputEditText>(R.id.input_title).text.toString(),
+                    content = view.findViewById<TextInputEditText>(R.id.input_content).text.toString()
+                )
+                vm.add(newTodo)
+                requireActivity().supportFragmentManager.popBackStack()
+                (activity as MainActivity).findViewById<FloatingActionButton>(R.id.fab).isVisible = true
+            } else {
+                Snackbar.make(view, "제목과 내용을 입력해 주세요.", Snackbar.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+        }
+
     }
 
     companion object {

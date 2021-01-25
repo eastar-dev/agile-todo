@@ -35,6 +35,7 @@ open class CreateFragment : Fragment() {
         view.findViewById<MaterialButton>(R.id.btn_add).setOnClickListener {
 
             if (checkValidation(view.findViewById<TextInputEditText>(R.id.input_title).text.toString(), view.findViewById<TextInputEditText>(R.id.input_content).text.toString())) {
+
                 val newTodo = Todo(
                     title = view.findViewById<TextInputEditText>(R.id.input_title).text.toString(),
                     content = view.findViewById<TextInputEditText>(R.id.input_content).text.toString()
@@ -56,7 +57,7 @@ open class CreateFragment : Fragment() {
         (activity as MainActivity).findViewById<FloatingActionButton>(R.id.fab).isVisible = true
     }
 
-    private fun checkValidation(title: String, content: String): Boolean = !(title.isBlank() || content.isBlank())
+    fun checkValidation(title: String, content: String): Boolean = !(title.isBlank() || content.isBlank())
 
 }
 
