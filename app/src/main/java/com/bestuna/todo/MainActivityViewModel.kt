@@ -40,4 +40,9 @@ class MainActivityViewModel : ViewModel() {
         TodoDB.add(todos)
     }
 
+    fun add(todo: Todo) {
+        TodoDB.add(todo)
+        getTodos()
+    }
+
 }
