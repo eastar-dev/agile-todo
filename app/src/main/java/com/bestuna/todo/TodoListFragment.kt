@@ -45,7 +45,7 @@ open class TodoListFragment : Fragment() {
         }
 
         override fun onBindViewHolder(holder: ToDoDisplayViewHolder, position: Int) {
-            holder.id.text = list[position].id
+//            holder.id.text = list[position].id
             holder.title.text = list[position].title
             holder.content.text = list[position].content
         }
@@ -62,7 +62,7 @@ open class TodoListFragment : Fragment() {
 
             val title = view.findViewById<TextView>(R.id.title)
             val content = view.findViewById<TextView>(R.id.content)
-            val id = view.findViewById<TextView>(R.id.id)
+//            val id = view.findViewById<TextView>(R.id.id)
         }
     }
 }
