@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.RecyclerView
@@ -28,9 +29,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         bb = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bb.root)
-        setSupportActionBar(bb.toolbar)
         TodoDB.CREATE(this)
-
 
         adapter = TodoDisplayAdapter(
             this,
@@ -45,6 +44,7 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.commit {
                 replace(R.id.fragment, CreateFragment())
             }
+            view.isVisible = false
             Snackbar.make(view, "Create Fragment 보일거야 ", Snackbar.LENGTH_LONG)
 
                 .setAction("Action", null).show()
