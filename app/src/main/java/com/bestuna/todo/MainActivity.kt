@@ -52,9 +52,8 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    inner class TodoDisplayAdapter(context: Context, list:MutableList<Todo>) : RecyclerView.Adapter<TodoDisplayAdapter.ToDoDisplayViewHolder>() {
+    inner class TodoDisplayAdapter(var context: Context, list:MutableList<Todo>) : RecyclerView.Adapter<TodoDisplayAdapter.ToDoDisplayViewHolder>() {
         var DisplayList = list
-        var context = context
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToDoDisplayViewHolder {
             val view = LayoutInflater.from(context).inflate(R.layout.displaylist_item,parent,false)
