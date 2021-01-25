@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import com.bestuna.todo.data.Todo
@@ -24,13 +25,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         bb = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bb.root)
-        setSupportActionBar(bb.toolbar)
         TodoDB.CREATE(this)
+
 
         bb.fab.setOnClickListener { view ->
             supportFragmentManager.commit {
                 replace(R.id.fragment, CreateFragment())
             }
+            view.isVisible = false
             Snackbar.make(view, "Create Fragment 보일거야 ", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }

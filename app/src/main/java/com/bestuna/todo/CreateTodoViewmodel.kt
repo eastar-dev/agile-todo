@@ -1,5 +1,6 @@
 package com.bestuna.todo
 
+import android.log.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bestuna.todo.data.Todo
@@ -14,6 +15,6 @@ class CreateTodoViewmodel: ViewModel() {
     }
 
     fun addTodo(todo: Todo) {
-
+        Log.e("새로 생성된 todo", todo)
     }
 }
