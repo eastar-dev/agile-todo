@@ -1,23 +1,52 @@
 package com.bestuna.todo
 
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import com.bestuna.todo.data.Todo
+import com.bestuna.todo.databinding.ActivityMainBinding
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
+import dev.eastar.ktx.alert
+import dev.eastar.ktx.negativeButton
+import dev.eastar.ktx.positiveButton
+import dev.eastar.ktx.toast
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var bb: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(findViewById(R.id.toolbar))
+        bb = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(bb.root)
+        setSupportActionBar(bb.toolbar)
 
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
+        bb.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+                .setAction("Action", null).show()
         }
+
+        bb.delete.setOnLongClickListener {
+            maneage(Todo())
+            true
+        }
+    }
+
+    fun maneage(todo: Todo): Unit {
+        alert("삭제 혹은 수정") {
+            positiveButton("수정") { edit(todo) }
+            negativeButton("삭제") { delete(todo) }
+        }
+    }
+
+    private fun edit(todo: Todo) {
+        toast("삭제 $todo")
+    }
+
+    private fun delete(todo: Todo) {
+        toast("삭제 $todo")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -35,4 +64,6 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+
 }
