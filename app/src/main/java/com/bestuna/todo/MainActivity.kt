@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         bb = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bb.root)
         TodoDB.CREATE(this)
-
+        bb.toolbar.title = "ToDo List"
         adapter = TodoDisplayAdapter(
             this,
             mutableListOf(
@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: ToDoDisplayViewHolder, position: Int) {
-            holder.id.text = list[position].id
+//            holder.id.text = list[position].id
             holder.title.text = list[position].title
             holder.content.text = list[position].content
         }
@@ -118,7 +118,7 @@ class MainActivity : AppCompatActivity() {
 
             val title = view.findViewById<TextView>(R.id.title)
             val content = view.findViewById<TextView>(R.id.content)
-            val id = view.findViewById<TextView>(R.id.id)
+//            val id = view.findViewById<TextView>(R.id.id)
         }
     }
 }
