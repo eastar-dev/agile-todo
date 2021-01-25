@@ -4,11 +4,10 @@ import android.log.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bestuna.todo.data.Todo
-import kotlin.random.Random
 
 class MainActivityViewModel : ViewModel() {
     //01
-    val todos = MutableLiveData<List<Todo>>()
+    val todoItems = MutableLiveData<List<Todo>>()
 
     //02
     init {
@@ -17,26 +16,12 @@ class MainActivityViewModel : ViewModel() {
     }
 
     private fun getTodos() {
-        val rand = Random(System.currentTimeMillis())
-        val todos = listOf(
-            Todo(title = rand.nextInt().toString(), content = rand.nextFloat().toString()),
-            Todo(title = rand.nextInt().toString(), content = rand.nextFloat().toString()),
-            Todo(title = rand.nextInt().toString(), content = rand.nextFloat().toString()),
-            Todo(title = rand.nextInt().toString(), content = rand.nextFloat().toString()),
-            Todo(title = rand.nextInt().toString(), content = rand.nextFloat().toString()),
-            Todo(title = rand.nextInt().toString(), content = rand.nextFloat().toString()),
-            Todo(title = rand.nextInt().toString(), content = rand.nextFloat().toString()),
-            Todo(title = rand.nextInt().toString(), content = rand.nextFloat().toString()),
-            Todo(title = rand.nextInt().toString(), content = rand.nextFloat().toString()),
-            Todo(title = rand.nextInt().toString(), content = rand.nextFloat().toString()),
-            Todo(title = rand.nextInt().toString(), content = rand.nextFloat().toString()),
-            Todo(title = rand.nextInt().toString(), content = rand.nextFloat().toString()),
-        )
-        Log.e(todos)
-        this@MainActivityViewModel.todos.value = todos
+        val todoList = TodoDB.get()
+        Log.e(todoList)
+        todoItems.value = todoList
     }
 
-    private fun saveTodos(todos : List<Todo>) {
+    private fun saveTodos(todos: List<Todo>) {
         TodoDB.add(todos)
     }
 

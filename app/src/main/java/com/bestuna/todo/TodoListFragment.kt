@@ -27,7 +27,7 @@ open class TodoListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        vm.todos.observe(viewLifecycleOwner) {
+        vm.todoItems.observe(viewLifecycleOwner) {
             bb.todoList.adapter = TodoDisplayAdapter(requireContext(), it)
         }
     }
